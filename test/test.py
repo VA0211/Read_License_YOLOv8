@@ -4,7 +4,7 @@ import numpy as np
 from show_result import plot_bboxes
 
 model = YOLO("D:/TIPA/License/Read_License_YOLOv8/test/ORC.pt")
-image = Image.open("D:/TIPA/License/Read_License_YOLOv8/test/1.jpg")
+image = Image.open("D:/TIPA/License/Read_License_YOLOv8/test/test_img/2110.jpg")
 image_arr = np.asarray(image)
 results = model.predict(image_arr)
 #print(results[0].boxes.boxes)
