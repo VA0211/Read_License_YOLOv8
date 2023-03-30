@@ -46,6 +46,6 @@ def plot_bboxes(image, boxes, labels=[], colors=[], score=True, conf=None):
 
     #show image
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    cv2.imshow('Result', image) #if used in Python
+    cv2.imshow('Result', image)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
