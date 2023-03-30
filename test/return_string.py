@@ -22,7 +22,7 @@ def box_label(image, box, label='', color=(128, 128, 128), txt_color=(255, 255, 
                     txt_color, thickness=tf, lineType=cv2.LINE_AA)
         return p1
     
-def print_plate(image, boxes, labels=[], colors=[], score=False):
+def print_plate(image, boxes, labels=[], colors=[], score=False, conf=0.4):
     if labels == []:
        labels = {0: u'background', 1: u'0', 2: u'1', 3: u'2', 4: u'3', 5: u'4', 6: u'5', 7: u'6', 8: u'7', 9: u'8', 
                  10: u'9', 11: u'A', 12: u'B', 13: u'C', 14: u'D', 15: u'E', 16: u'F', 17: u'G', 18: u'H', 19: u'K', 
@@ -45,8 +45,10 @@ def print_plate(image, boxes, labels=[], colors=[], score=False):
             label = labels[int(box[-1])+1] + " " + str(round(100 * float(box[-2]),1)) + "%"
         else:
             label = labels[int(box[-1])+1]
-        p1 = box_label(image, box, label)
-        position.update({label: p1})
+
+        if box[-2] > conf:
+            p1 = box_label(image, box, label)
+            position.update({label: p1})
 
     mean_y = np.mean(list(position.values()))
     for char, pos in position.items():
