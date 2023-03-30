@@ -48,13 +48,13 @@ def print_plate(image, boxes, labels=[], colors=[], score=False):
         p1 = box_label(image, box, label)
         position.update({label: p1})
 
-    mean_y = np.mean(position.values())
+    mean_y = np.mean(list(position.values()))
     for char, pos in position.items():
-        if pos[1] > mean_y:
+        if pos[1] < mean_y:
             line1.update({char: pos[0]})
         else:
             line2.update({char: pos[0]})
     line1 = sort_value_dict(line1)
     line2 = sort_value_dict(line2)
-    result = str(list(line1.keys())) + str(list(line1.keys()))
+    result = str(list(line1.keys())) + str(list(line2.keys()))
     print(result)
