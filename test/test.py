@@ -2,6 +2,7 @@ from ultralytics import YOLO
 import numpy as np
 import cv2
 from show_result import plot_bboxes
+from return_string import print_plate
 from pre_process import pre_processing
 
 detect_model = YOLO("D:/TIPA/License/Read_License_YOLOv8/models/Detect.pt")
@@ -27,5 +28,5 @@ for box, conf, label in zip(boxes, confidences, labels):
 license_img = pre_processing(image_crop)
 
 results = ORC_model.predict(license_img)
-#print(results[0].boxes.boxes)
-plot_bboxes(license_img, results[0].boxes.boxes, score=False, conf=0.4)
+#plot_bboxes(license_img, results[0].boxes.boxes, score=False, conf=0.4)
+print_plate(license_img, results[0].boxes.boxes)
