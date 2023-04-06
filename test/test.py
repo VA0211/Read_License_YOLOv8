@@ -8,10 +8,10 @@ from pre_process import pre_processing
 detect_model = YOLO("D:/TIPA/License/Read_License_YOLOv8/models/Detect.pt")
 ORC_model = YOLO("D:/TIPA/License/Read_License_YOLOv8/models/OCR-batch-1-4-23.pt")
 
-image_name = "IPSS2.7_s244.6_2017-12-07.14-52-26.jpg"
-#image = cv2.imread(f"D:/TIPA/License/Read_License_YOLOv8/test/test_img/{image_name}")
+image_name = "14.jpeg"
+image = cv2.imread(f"D:/TIPA/License/Read_License_YOLOv8/test/test_img/{image_name}")
 #image = cv2.imread(f"D:/TIPA/License/Read_License_YOLOv8/test/test_img/TEST BIEN SO/TEST BIEN SO/{image_name}")
-image = cv2.imread(f"D:/TIPA/License/Read_License_YOLOv8/test/test_img/TEST BIEN SO/no_support/{image_name}")
+#image = cv2.imread(f"D:/TIPA/License/Read_License_YOLOv8/test/test_img/TEST BIEN SO/no_support/{image_name}")
 image_arr = np.asarray(image)
 
 license_results = detect_model.predict(image_arr)
