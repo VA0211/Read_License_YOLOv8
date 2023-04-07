@@ -1,11 +1,14 @@
 import cv2
 import numpy as np
+import math
 
-def sort_value_dict(dictionary):
-    keys = list(dictionary.keys())
+def sort_x_value_dict(dictionary):
+    keys = []
+    for key in dictionary.keys():
+        keys.append(key[0])
     values = list(dictionary.values())
-    sorted_value_index = np.argsort(values)
-    sorted_dict = {keys[i]: values[i] for i in sorted_value_index}
+    sorted_key_index = np.argsort(keys)
+    sorted_dict = {list(dictionary.keys())[i]: values[i] for i in sorted_key_index}
     return sorted_dict
 
 def box_label(image, box, label='', color=(128, 128, 128), txt_color=(255, 255, 255)):
@@ -22,7 +25,7 @@ def box_label(image, box, label='', color=(128, 128, 128), txt_color=(255, 255, 
                     txt_color, thickness=tf, lineType=cv2.LINE_AA)
         return p1
     
-def print_plate(image, boxes, labels=[], colors=[], score=False, conf=0.4):
+def print_plate(image, boxes, labels=[], colors=[], score=False, conf=0):
     if labels == []:
        labels = {0: u'background', 1: u'0', 2: u'1', 3: u'2', 4: u'3', 5: u'4', 6: u'5', 7: u'6', 8: u'7', 9: u'8', 
                  10: u'9', 11: u'A', 12: u'B', 13: u'C', 14: u'D', 15: u'E', 16: u'F', 17: u'G', 18: u'H', 19: u'K', 
@@ -38,6 +41,7 @@ def print_plate(image, boxes, labels=[], colors=[], score=False, conf=0.4):
     position = {}
     line1 = {}
     line2 = {}
+    y_values = []
     result = []
     for box in boxes:
         #add score in label if score=True
@@ -48,15 +52,17 @@ def print_plate(image, boxes, labels=[], colors=[], score=False, conf=0.4):
 
         if box[-2] > conf:
             p1 = box_label(image, box, label)
-            position.update({label: p1})
+            position.update({p1: label})
+            y_values.append(p1[1])
 
-    mean_y = np.mean(list(position.values()))
-    for char, pos in position.items():
+    position = sort_x_value_dict(position)
+    mean_y = np.mean(y_values)
+    for pos, char in position.items():
         if pos[1] < mean_y:
-            line1.update({char: pos[0]})
+            line1.update({pos[0]:char})
         else:
-            line2.update({char: pos[0]})
-    line1 = sort_value_dict(line1)
-    line2 = sort_value_dict(line2)
-    result = str(list(line1.keys())) + str(list(line2.keys()))
+            line2.update({pos[0]:char})
+    result = list(line1.values()) + list(line2.values())
+    result = ''.join(map(str, result))
     print(result)
+

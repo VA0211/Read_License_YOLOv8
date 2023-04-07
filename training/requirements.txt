@@ -1,13 +1,13 @@
-ultralytics
-clearml
-opencv-python
-matplotlib
-numpy
-Pillow
-torch
-torchvision
-tqdm
-pyyaml
-requests
-pandas
-seaborn
+ultralytics == 8.0.54
+clearml == 1.9.3
+opencv-python == 4.7.0.72
+matplotlib == 3.6.3
+numpy == 1.24.1
+Pillow == 9.4.0
+torch == 2.0.0
+torchvision == 0.15.1
+tqdm == 4.65.0
+pyyaml == 6.0
+requests == 2.28.1
+pandas == 1.5.3
+seaborn == 0.12.2
